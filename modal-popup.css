@@ -1,0 +1,121 @@
+/* WordPress Popup Modal */
+.wp-popup-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.wp-popup-modal.is-open {
+  display: flex;
+}
+
+.wp-popup-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.wp-popup-modal__card {
+  position: relative;
+  width: min(100%, 560px);
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+  z-index: 1;
+  animation: wpPopupFadeIn 0.24s ease-out;
+}
+
+.wp-popup-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.wp-popup-modal__close:hover,
+.wp-popup-modal__close:focus-visible {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.wp-popup-modal__media {
+  background: #f2f2f2;
+  min-height: 180px;
+  
+}
+
+.wp-popup-modal__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.wp-popup-modal__body {
+  padding: 22px;
+}
+
+.wp-popup-modal__title {
+  margin: 0 0 10px;
+  font-size: 1.4rem;
+}
+
+.wp-popup-modal__text {
+  margin: 0 0 16px;
+  color: #4a4a4a;
+}
+
+.wp-popup-modal__action {
+  border: 0;
+  border-radius: 8px;
+  background: #0073aa;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 18px;
+  cursor: pointer;
+}
+
+.wp-popup-modal__action:hover,
+.wp-popup-modal__action:focus-visible {
+  background: #005f8d;
+}
+
+@keyframes wpPopupFadeIn {
+  from {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .wp-popup-modal__media {
+    height: 300px
+    
+  }
+}
+
+@media (min-width: 640px) {
+  
+}
+
+@media (min-width: 1280px) {
+  
+}

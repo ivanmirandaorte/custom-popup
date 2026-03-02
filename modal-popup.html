@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="modal-popup.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Popup Modal Component -->
+    <div
+      class="wp-popup-modal"
+      id="wpPopupModal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="wpPopupTitle"
+    >
+      <div class="wp-popup-modal__overlay" data-popup-close></div>
+
+      <div class="wp-popup-modal__card" role="document">
+        <button
+          class="wp-popup-modal__close"
+          type="button"
+          aria-label="Close popup"
+          data-popup-close
+        >
+          &times;
+        </button>
+
+        <div class="wp-popup-modal__media">
+          <img
+            src="/modal-popup-component/assets/AHF_Forbes_Web Banner_1000x1350 1.jpg"
+            alt="Popup visual"
+          />
+        </div>
+
+        <div class="wp-popup-modal__body">
+          <h2 id="wpPopupTitle" class="wp-popup-modal__title">Welcome</h2>
+          <p class="wp-popup-modal__text">
+            Add your promo text, newsletter CTA, or announcement here.
+          </p>
+          <button class="wp-popup-modal__action" type="button">Click Me</button>
+        </div>
+      </div>
+
+      <script src="modal-popup.js"></script>
+    </div>
+  </body>
+</html>
