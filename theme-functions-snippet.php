@@ -29,9 +29,56 @@ function wp_popup_is_cornerstone_editing()
 		return true;
 	}
 
-	// Check for Cornerstone REST request
-	if (defined('REST_REQUEST') && REST_REQUEST && strpos($_SERVER['REQUEST_URI'], '/cornerstone/') !== false) {
+	// Check for any editing-related query parameters
+	if (isset($_GET['cornerstone-edit']) || isset($_GET['cornerstone-preview'])) {
 		return true;
+	}
+
+	// Check for Cornerstone REST request
+	if (defined('REST_REQUEST') && REST_REQUEST && isset($_SERVER['REQUEST_URI'])) {
+		if (strpos($_SERVER['REQUEST_URI'], '/cornerstone/') !== false) {
+			return true;
+		}
+	}
+
+	// Check for Cornerstone global
+	if (isset($GLOBALS['cornerstone'])) {
+		return true;
+	}
+
+	// Check for Cornerstone constant
+	if (defined('CORNERSTONE_ACTIVE') || defined('CS_ACTIVE')) {
+		return true;
+	}
+
+	// Check for $_GET parameters that indicate editing
+	if (isset($_GET['action']) && $_GET['action'] === 'cornerstone' && isset($_GET['view']) && $_GET['view'] === 'edit') {
+		return true;
+	}
+
+	// Check for Cornerstone in URL pattern - case insensitive
+	if (isset($_SERVER['REQUEST_URI'])) {
+		$uri = strtolower($_SERVER['REQUEST_URI']);
+		if (
+			strpos($uri, 'cornerstone') !== false ||
+			strpos($uri, 'x-cornerstone') !== false ||
+			strpos($uri, 'cplugin') !== false
+		) {
+			return true;
+		}
+	}
+
+	// Check if parent frame is set (Cornerstone uses iframe)
+	if (isset($_GET['tb']) && $_GET['tb'] !== '') {
+		return true;
+	}
+
+	// Check for X-Requested-With header that might indicate AJAX from Cornerstone
+	$headers = getallheaders();
+	if (isset($headers['X-Requested-With']) && $headers['X-Requested-With'] === 'XMLHttpRequest') {
+		if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'cornerstone') !== false) {
+			return true;
+		}
 	}
 
 	return false;
@@ -77,7 +124,17 @@ function wp_popup_render_template()
 {
 	static $rendered = false;
 
-	if ($rendered || is_admin() || wp_popup_is_cornerstone_editing()) {
+	if ($rendered) {
+		return;
+	}
+
+	// Check if in admin or Cornerstone editing
+	if (is_admin() || wp_popup_is_cornerstone_editing()) {
+		return;
+	}
+
+	// Extra safety: check if we're in an iframe (common for Cornerstone preview)
+	if (isset($_GET['iframe']) || isset($_GET['cornerstone-preview'])) {
 		return;
 	}
 
@@ -88,7 +145,5 @@ function wp_popup_render_template()
 		$rendered = true;
 	}
 }
-add_action('wp_footer', 'wp_popup_render_template');
-add_action('x_after_site_end', 'wp_popup_render_template');
-add_action('wp_body_open', 'wp_popup_render_template');
-add_action('x_after_site_begin', 'wp_popup_render_template');
+add_action('wp_footer', 'wp_popup_render_template', 999);
+add_action('x_after_site_end', 'wp_popup_render_template', 999);

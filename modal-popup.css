@@ -94,6 +94,7 @@
 .wp-popup-modal__action:hover,
 .wp-popup-modal__action:focus-visible {
   background: #942020c7;
+  color: #fff
 }
 
 @keyframes wpPopupFadeIn {

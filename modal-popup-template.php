@@ -40,7 +40,7 @@ $image_url      = file_exists($image_file) ? (get_stylesheet_directory_uri() . $
 
     <div class="wp-popup-modal__body">
       <!-- <h2 class="wp-popup-modal__title" id="wpPopupTitle"><?php esc_html_e('Important Update', 'pro-child'); ?></h2> -->
-      <button class="wp-popup-modal__action" type="button"><?php esc_html_e('Learn More', 'pro-child'); ?></button>
+      <a href="https://www.desertsun.com/story/news/nation/california/2026/02/20/california-is-home-to-26-of-forbes-americas-best-companies-to-work-for/88777559007/" class="wp-popup-modal__action" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Learn More', 'pro-child'); ?></a>
     </div>
   </div>
 </div>

@@ -2,6 +2,41 @@
   var modal = document.getElementById('wpPopupModal');
   if (!modal) return;
 
+  // Detect if we're in Cornerstone editor
+  function isCornerstoneEditor() {
+    // Check if parent window has Cornerstone
+    if (window.parent && window.parent.Cornerstone) {
+      return true;
+    }
+
+    // Check if current window has Cornerstone
+    if (window.Cornerstone) {
+      return true;
+    }
+
+    // Check URL parameters
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('cornerstone') || urlParams.get('cs') || urlParams.get('cornerstone-edit') || urlParams.get('cornerstone-preview')) {
+      return true;
+    }
+
+    // Check if we're in an iframe and parent is editing
+    try {
+      if (window.self !== window.top && window.top.Cornerstone) {
+        return true;
+      }
+    } catch (e) {
+      // Cross-origin check
+    }
+
+    return false;
+  }
+
+  // If in Cornerstone editor, don't proceed
+  if (isCornerstoneEditor()) {
+    return;
+  }
+
   var closeTriggers = modal.querySelectorAll('[data-popup-close]');
   var sessionKey = 'wpPopupShown';
 
