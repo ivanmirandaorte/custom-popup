@@ -64,12 +64,14 @@
     }
   });
 
-  // Show popup only once per session
+  // Show popup only once per session with 3 second delay
   if (!sessionStorage.getItem(sessionKey)) {
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', openModal);
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(openModal, 3000);
+      });
     } else {
-      openModal();
+      setTimeout(openModal, 3000);
     }
   }
 })();
