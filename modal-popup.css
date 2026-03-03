@@ -4,13 +4,13 @@
   inset: 0;
   z-index: 9999;
   display: none;
-  align-items: center;
-  justify-content: center;
   padding: 16px;
 }
 
 .wp-popup-modal.is-open {
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wp-popup-modal__overlay {
@@ -52,7 +52,7 @@
 }
 
 .wp-popup-modal__media {
-  background: #f2f2f2;
+  background: #000000;
   min-height: 180px;
   aspect-ratio: 435 / 545;
 }

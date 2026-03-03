@@ -3,11 +3,14 @@
   if (!modal) return;
 
   var closeTriggers = modal.querySelectorAll('[data-popup-close]');
+  var sessionKey = 'wpPopupShown';
 
   function openModal() {
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    // Mark popup as shown in this session
+    sessionStorage.setItem(sessionKey, 'true');
   }
 
   function closeModal() {
@@ -26,10 +29,12 @@
     }
   });
 
-  // Show popup on page load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', openModal);
-  } else {
-    openModal();
+  // Show popup only once per session
+  if (!sessionStorage.getItem(sessionKey)) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', openModal);
+    } else {
+      openModal();
+    }
   }
 })();
