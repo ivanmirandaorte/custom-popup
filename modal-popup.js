@@ -32,12 +32,33 @@
     return false;
   }
 
+  // Detect if we're on the home page
+  function isHomePage() {
+    // Check for WordPress 'home' body class 
+    if (document.body.classList.contains('home')) {
+      return true;
+    }
+
+    // Check if pathname is root 
+    if (window.location.pathname === '/') {
+      return true;
+    }
+
+    return false;
+  }
+
   // If in Cornerstone editor, don't proceed
   if (isCornerstoneEditor()) {
     return;
   }
 
+  // Only show popup on home page 
+  if (!isHomePage()) {
+    return;
+  }
+
   var closeTriggers = modal.querySelectorAll('[data-popup-close]');
+  var actionButtons = modal.querySelectorAll('.wp-popup-modal__action');
   var sessionKey = 'wpPopupShown';
 
   function openModal() {
@@ -57,6 +78,10 @@
   closeTriggers.forEach(function (trigger) {
     trigger.addEventListener('click', closeModal);
   });
+
+  actionButtons.forEach(function (button) {
+    button.addEventListener('click', closeModal);
+  })
 
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && modal.classList.contains('is-open')) {
