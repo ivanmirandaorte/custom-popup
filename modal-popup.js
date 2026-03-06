@@ -81,7 +81,7 @@
 
   actionButtons.forEach(function (button) {
     button.addEventListener('click', closeModal);
-  })
+  });
 
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && modal.classList.contains('is-open')) {
