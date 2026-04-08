@@ -13,6 +13,12 @@ if (! defined('ABSPATH')) {
 }
 
 /**
+ * Master on/off switch for the popup.
+ * Set to false to disable the popup site-wide.
+ */
+define('WP_POPUP_ENABLED', true);
+
+/**
  * Check if we're in Cornerstone editor.
  *
  * @return bool True if in Cornerstone editor, false otherwise.
@@ -89,7 +95,7 @@ function wp_popup_is_cornerstone_editing()
  */
 function wp_popup_enqueue_assets()
 {
-	if (is_admin() || wp_popup_is_cornerstone_editing()) {
+	if (! WP_POPUP_ENABLED || is_admin() || wp_popup_is_cornerstone_editing()) {
 		return;
 	}
 
@@ -128,8 +134,8 @@ function wp_popup_render_template()
 		return;
 	}
 
-	// Check if in admin or Cornerstone editing
-	if (is_admin() || wp_popup_is_cornerstone_editing()) {
+	// Check if popup is enabled, in admin, or Cornerstone editing
+	if (! WP_POPUP_ENABLED || is_admin() || wp_popup_is_cornerstone_editing()) {
 		return;
 	}
 
